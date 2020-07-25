@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grammar xml:lang="en-US" root="flightBooker" 
+tag-format="semantics/1.0" version="1.0" 
+xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="flightBooker" scope="public">
+    <item> I want to </item>
+    <ruleref uri="#travelby" />
+    <tag> out.TravelBy=rules.latest(); </tag>
+    <item> from </item>
+    <ruleref uri="#flightCities" />
+    <tag> out.LeavingFrom=rules.latest(); </tag>
+    <item> to </item>
+    <ruleref uri="#flightCities" />
+    <tag> out.GoingTo=rules.latest(); </tag>
+  </rule>
+  
+  <rule id ="travelby">
+    <one-of>
+     <item> drive </item><tag> out="Car"; </tag>
+     <item> bus </item><tag> out="Bus"; </tag>
+     <item> fly </item><tag> out="Plane"; </tag>
+     <item> train </item><tag> out="Train"; </tag>
+    </one-of>
+  </rule>
+   
+  <rule id="flightCities" scope="private">
+    <one-of>
+      <item> <tag> out="SEA"; </tag>
+        <one-of>
+          <item> Seattle-Tacoma </item>
+          <item> Sea-Tac </item>
+          <item> Seattle </item>
+        </one-of>
+      </item>
+      <item> Boston <tag> out="BOS"; </tag> </item>
+      <item> Miami <tag> out="MIA"; </tag> </item>
+      <item> <tag> out="DFW"; </tag>
+        <one-of>
+          <item> Dallas </item>
+          <item> Fort Worth </item>
+          <item> Dallas-Fort Worth </item>
+        </one-of>
+      </item>
+    </one-of>
+  </rule>
+
+</grammar>
